@@ -14,30 +14,17 @@ namespace SoccerStats
             string currentDirectory = Directory.GetCurrentDirectory();
             DirectoryInfo directory = new DirectoryInfo(currentDirectory);
 
-            var fileName = Path.Combine(directory.FullName, "data.txt"); //Path.Combine will add / if / missing 
-            var file = new FileInfo(fileName);
+            var fileName = Path.Combine(directory.FullName, "SoccerGameResults.csv"); //Path.Combine will add / if / missing 
+            var fileContents = ReadFile(fileName);
+            Console.WriteLine(fileContents);
+        }
 
-            if (file.Exists)
+        public static string ReadFile(string fileName)
+        {
+            using (var reader = new StreamReader(fileName))
             {
-                //var reader = new streamreader(file.fullname);
-                //try
-                //{
-                //    console.setin(reader);
-                //    console.writeline(console.readline());
-                //}
-                //finally
-                //{
-                //    reader.close();
-                //}
-
-                //simple way 
-                using (var reader = new StreamReader(file.FullName))
-                {
-                    Console.SetIn(reader);
-                    Console.WriteLine(Console.ReadLine());  
-                }//calls dispose method which calls the close method 
+                return reader.ReadToEnd();
             }
-
         }
     }
 }

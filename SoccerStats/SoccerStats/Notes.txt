@@ -21,3 +21,7 @@
                     Console.WriteLine(Console.ReadLine());  
                 }//calls dispose method which calls the close method 
             }
+
+
+			\r = Char return 
+			\n = new line 

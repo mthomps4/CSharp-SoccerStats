@@ -1,0 +1,13 @@
+﻿C# interactive 
+
+char capitalH = 'H'; //Use single quotes 
+capitalH -> returns 'H' 
+
+char lowerH = '\u0068'; // unicode for lower h 
+lowerH -> returns 'h' 
+
+byte[] unicodeBytes = UnicodeEncoding.Unicode.GetBytes(new char[] {lowerH}); 
+unicodeBytes -> returns byte[2] {104, 0}
+string unicodeString = UnicodeEncoding.Unicode.GetString(unicodeBytes); 
+unicodeString -> returns "h"  //returns string "" h 
+

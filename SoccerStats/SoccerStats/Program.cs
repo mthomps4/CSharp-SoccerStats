@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace SoccerStats
 {
@@ -12,23 +13,24 @@ namespace SoccerStats
     {
         static void Main(string[] args)
         {
-            string currentDirectory = Directory.GetCurrentDirectory();
-            DirectoryInfo directory = new DirectoryInfo(currentDirectory);
-            var fileName = Path.Combine(directory.FullName, "SoccerGameResults.csv"); //Path.Combine will add / if / missing 
-            var fileContents = ReadSoccerResults(fileName);
-            fileName = Path.Combine(directory.FullName, "players.json");
-            var players = DeserializePlayers(fileName);
+            //string currentDirectory = Directory.GetCurrentDirectory();
+            //DirectoryInfo directory = new DirectoryInfo(currentDirectory);
+            //var fileName = Path.Combine(directory.FullName, "SoccerGameResults.csv"); //Path.Combine will add / if / missing 
+            //var fileContents = ReadSoccerResults(fileName);
+            //fileName = Path.Combine(directory.FullName, "players.json");
+            //var players = DeserializePlayers(fileName);
 
 
-            var topTenPlayers = GetTopTenPlayers(players); 
-            foreach (var player in topTenPlayers)
-            {
-                Console.WriteLine("Name: " + player.FirstName + " PPG: " + player.PointsPerGame);
-            }
+            //var topTenPlayers = GetTopTenPlayers(players); 
+            //foreach (var player in topTenPlayers)
+            //{
+            //    Console.WriteLine("Name: " + player.FirstName + " PPG: " + player.PointsPerGame);
+            //}
 
-            fileName = Path.Combine(directory.FullName, "topTen.json");
-            SerializePlayerToFile(topTenPlayers, fileName);
+            //fileName = Path.Combine(directory.FullName, "topTen.json");
+            //SerializePlayerToFile(topTenPlayers, fileName);
 
+            Console.WriteLine(GetGoogleHomePage());
         }
 
         public static string ReadFile(string fileName)
@@ -131,6 +133,18 @@ namespace SoccerStats
             using (var jsonWriter = new JsonTextWriter(writer))
             {
                 serializer.Serialize(jsonWriter, players);
+            }
+        }
+
+        public static string GetGoogleHomePage()
+        {
+            var webClient = new WebClient();
+            byte[] googleHome = webClient.DownloadData("https://www.google.com");
+
+            using (var stream = new MemoryStream(googleHome))
+            using (var reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
             }
         }
 
